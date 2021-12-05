@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+  redis:
+    image: 'bitnami/redis:latest'
+    container_name: redis-server
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      # - REDIS_USER=admin
+      # - REDIS_PASSWORD=123456
+      # - REDIS_PORT_NUMBER=7000
+    ports:
+      - '6379:6379'
+  
+  backend1:
+    container_name: backend1
+    build: backend
+  
+  nginx-server:
+    image: nginx:1.21.4
+    ports: 
+        - "8080:80"
+    volumes: 
+        - './nginx.conf:/etc/nginx/nginx.conf'
+  
